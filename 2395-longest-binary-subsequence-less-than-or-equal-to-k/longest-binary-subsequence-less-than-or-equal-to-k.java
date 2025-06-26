@@ -13,7 +13,7 @@ class Solution {
                 }
                 pow = (int)Math.pow(2, n-i-1);
             }
-            if(pow>k) break;
+            // if(pow>k) break;
         }
         return one + zero;
     }
