@@ -11,17 +11,8 @@ class Solution {
                 revGraph.get(v).add(i);
                 outdegree[i]++;
             }
-            // for(int j=0; j<graph[i].length; j++){
-            //     revGraph.get(j).add(i);
-            //     outdegree[revGraph.get(j).get(i)]++;
-            // }
         }
         List<Integer> ans = new ArrayList<>();
-        // for(int i=0; i<n; i++){
-        //     for(int j=0; j<revGraph[i].size(); j++){
-        //         outdegree[graph[i][j]]++;
-        //     }
-        // }
         Queue<Integer> q = new LinkedList<>();
         boolean[] vis = new boolean[n];
         for(int i=0; i<n; i++){
