@@ -1,24 +1,15 @@
 class Solution {
     public int numSubarraysWithSum(int[] nums, int goal) {
-        int sum = 0;
+        int sum  = 0;
         int count = 0;
-        int n = nums.length;
-        for(int i=0; i<n; i++){
-            sum = nums[i];
-            if(nums[i]==goal){
-                count++;
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        for(int num: nums){
+            sum += num;
+            if(sum == goal) count++;
+            if(freq.containsKey(sum-goal)){
+                count += freq.get(sum-goal);
             }
-            int j=i+1;
-            while(j<n){
-                sum += nums[j];
-                if(sum == goal) {
-                    count++;
-                } else if(sum>goal){
-                    sum = 0;
-                    break;
-                }
-                j++;
-            }
+            freq.put(sum, freq.getOrDefault(sum, 0)+1);
         }
         return count;
     }
