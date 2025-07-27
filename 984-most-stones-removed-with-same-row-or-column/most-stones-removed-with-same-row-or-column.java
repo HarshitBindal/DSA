@@ -46,10 +46,10 @@ class DisjointSet {
         int pv = findpar(v);
         if(pu == pv) return;
         if(size.get(pu)>size.get(pv)){
-            size.set(pv, size.get(pu)+size.get(pv));
+            size.set(pu, size.get(pu)+size.get(pv));
             parent.set(pv, pu);
         } else {
-            size.set(pu, size.get(pu)+size.get(pv));
+            size.set(pv, size.get(pu)+size.get(pv));
             parent.set(pu, pv);
         }
     }
