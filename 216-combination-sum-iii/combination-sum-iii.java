@@ -1,6 +1,7 @@
 class Solution {
     public List<List<Integer>> res = new ArrayList<>();
     public List<Integer> set = new ArrayList<>();
+    
     public List<List<Integer>> combinationSum3(int k, int n) {
         int[] nums = new int[9];
         for(int i=0; i<9; i++){
@@ -10,9 +11,7 @@ class Solution {
         return res;
     }
 
-    private void helper(int[] nums,
-    int sum, int i, int k, int n, int size){
-
+    private void helper(int[] nums, int sum, int i, int k, int n, int size){
         if(sum>n) return;
         if(sum == n && size == k) {
             res.add(new ArrayList<>(set));
