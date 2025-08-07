@@ -9,7 +9,9 @@ class Solution {
         }
         int[] dp = new int[maxele+1];
         dp[0] = 0;
+        // int prev2 = 0;
         dp[1] = map.getOrDefault(1, 0);
+        // int prev = map.getOrDefault(1, 0);
         for(int i=2; i<=maxele; i++){
             int isum = i*map.getOrDefault(i, 0);
             int pick = isum + dp[i-2];
@@ -17,5 +19,7 @@ class Solution {
             dp[i] = Math.max(pick, notpick);
         }
         return dp[maxele];
+        // we can also space optimize it by using prev and curr baad me
+        // karenge par lala tata bye bye
     }
 }
