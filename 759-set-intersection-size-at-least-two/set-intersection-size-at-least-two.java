@@ -12,7 +12,7 @@ class Solution {
             if(p2>=a && p2<=b && p1>=a && p1<=b){
                 continue;
             }
-            else if(p1>=a && p1<=b && p2<=a){
+            else if(p1>=a && p1<=b){
                 ans++;
                 p2 = p1;
                 p1 = b;
