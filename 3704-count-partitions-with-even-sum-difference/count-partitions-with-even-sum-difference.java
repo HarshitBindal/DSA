@@ -13,7 +13,7 @@ class Solution {
         }
         int count = 0;
         for(int i=0; i<n-1; i++){
-            if((prefix[i]-suffix[i+1])%2 == 0) count++;
+            if(((prefix[i]-suffix[i+1])&1) == 0) count++;
         }
         return count;
     }
