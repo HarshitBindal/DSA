@@ -1,10 +1,9 @@
 class Solution {
     public int minOperations(int[] nums) {
         HashMap<Integer, Integer> freq = new HashMap<>();
-        int total = 0;
+        int total = nums.length;
         for(int num: nums){
             freq.put(num, freq.getOrDefault(num,0)+1);
-            total++;
         }
         int j=0;
         int count = 0;
