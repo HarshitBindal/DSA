@@ -1,17 +1,8 @@
 class Solution {
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        List<List<Integer>> graph = new ArrayList<>();
         int n = rooms.size();
-        for(int i=0; i<n; i++){
-            graph.add(new ArrayList<>());
-        }
-        for(int i=0; i<n; i++){
-            for(int it: rooms.get(i)){
-                graph.get(i).add(it);
-            }
-        }
         boolean[] visited = new boolean[n];
-        dfs(graph, 0, visited);
+        dfs(rooms, 0, visited);
         for(boolean it: visited){
             if(it==false) return false;
         }
