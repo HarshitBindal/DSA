@@ -1,23 +1,23 @@
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
         HashSet<String> set = new HashSet<>();
-        for(int i=0; i<wordDict.size(); i++){
-            if(!set.contains(wordDict.get(i))) set.add(wordDict.get(i));
+        for(String word: wordDict){
+            if(!set.contains(word)) set.add(word);
         }
         Boolean[] dp = new Boolean[s.length()];
-        return helper(0, s, set, dp);
+        return helper(s,0,set,dp);
     }
-    private boolean helper(int i, String s, HashSet<String> set, Boolean[] dp){
-        if(i==s.length()) return true;
-        if(dp[i] != null) return dp[i];
-        for(int end=i+1; end<=s.length(); end++){
-            String word = s.substring(i, end);
-            if(set.contains(word) && helper(end, s, set, dp)){
-                dp[i]=true;
-                return true;
+    private boolean helper(String s, int ind, HashSet<String> set, Boolean[] dp){
+        if(ind==s.length()) return true;
+        if(dp[ind]!=null) return dp[ind];
+        for(int end=ind+1; end<=s.length(); end++){
+            String str = s.substring(ind, end);
+            if(set.contains(str) && helper(s,end,set,dp)) {
+                return dp[ind]=true;
+                // return true;
             }
         }
-        dp[i] = false;
-        return false;
+        return dp[ind]=false;
+        // return false;
     }
 }
