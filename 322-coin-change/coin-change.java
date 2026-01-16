@@ -1,25 +1,25 @@
 class Solution {
     public int coinChange(int[] coins, int amount) {
-        Arrays.sort(coins);
         int n = coins.length;
+        Arrays.sort(coins);
         int[][] dp = new int[n][amount+1];
-        for(int[] row: dp){
-            Arrays.fill(row, -1);
+        for(int[] curr: dp){
+            Arrays.fill(curr, -1);
         }
-        int x = helper(coins.length-1, coins, amount, dp);
-        return x >= (int)1e9? -1: x;
+        int x = helper(n-1,coins,amount,dp);
+        return x>=(int)1e9? -1:x;
     }
-    private int helper(int ind, int[] coins, int sum, int[][] dp){
+    private int helper(int ind, int[] coins, int amt, int[][] dp){
         if(ind==0){
-            if(sum%coins[ind] == 0) dp[ind][sum] = sum/coins[ind];
-            else return dp[ind][sum] = (int)1e9;
+            if(amt%coins[0]==0) return dp[ind][amt]=amt/coins[0];
+            else return (int)1e9;
         }
-        if(dp[ind][sum] != -1) return dp[ind][sum];
-        int notTake = helper(ind-1, coins, sum, dp);
+        if(dp[ind][amt]!=-1) return dp[ind][amt];
         int take = (int)1e9;
-        if(coins[ind]<=sum){
-            take = 1+helper(ind, coins, sum-coins[ind], dp);
-        } 
-        return dp[ind][sum] = Math.min(notTake, take);
+        if(coins[ind]<=amt){
+            take = 1+helper(ind,coins,amt-coins[ind],dp);
+        }
+        int notTake = helper(ind-1,coins,amt,dp);
+        return dp[ind][amt] = Math.min(take, notTake);
     }
 }
