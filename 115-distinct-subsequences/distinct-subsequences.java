@@ -1,10 +1,20 @@
 class Solution {
     public int numDistinct(String s, String t) {
-        int[][] dp = new int[s.length()][t.length()];
-        for(int[] curr: dp){
-            Arrays.fill(curr,-1);
+        int n = s.length();
+        int m = t.length();
+        int[][] dp = new int[n+1][m+1];
+        for(int j=0; j<=n; j++){
+            dp[j][0]=1;
         }
-        return helper(s.length()-1, t.length()-1, s, t, dp);
+        for(int i=1; i<=n; i++){
+            for(int j=1; j<=m; j++){
+                int pick = 0;
+                if(s.charAt(i-1)==t.charAt(j-1)) pick = dp[i-1][j-1];
+                int notpick = dp[i-1][j];
+                dp[i][j]=pick+notpick;
+            }
+        }
+        return dp[n][m];
     }
     private int helper(int i, int j, String s, String t, int[][] dp){
         if(j<0) return 1;
