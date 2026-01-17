@@ -2,20 +2,17 @@ class Solution {
     public int countSubstrings(String s) {
         int n = s.length();
         int count=0;
-        for(int i=0; i<n; i++){
+        boolean[][] dp = new boolean[n][n];
+        for(int i=n-1; i>=0; i--){
             for(int j=i; j<n; j++){
-                if(palindrome(s.substring(i,j+1))) count++;
+                if(i==j) dp[i][j]=true;
+                else if(j==i+1) dp[i][j]=(s.charAt(i)==s.charAt(j));
+                else{
+                    if(dp[i+1][j-1] && s.charAt(i)==s.charAt(j)) dp[i][j]=true;
+                }
+                if(dp[i][j]) count++;
             }
         }
         return count;
-    }
-    private boolean palindrome(String str){
-        int s=0, e=str.length()-1;
-        while(s<=e){
-            if(str.charAt(s)!=str.charAt(e)) return false;
-            s++;
-            e--;
-        }
-        return true;
     }
 }
