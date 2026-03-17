@@ -12,23 +12,23 @@ class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists.length==0) return null;
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int i=0; i<lists.length; i++){
-            ListNode temp = lists[i];
-            while(temp != null){
-                pq.offer(temp.val);
-                temp = temp.next;
+        for(ListNode list: lists){
+            ListNode curr = list;
+            while(curr!=null){
+                pq.offer(curr.val);
+                curr = curr.next;
             }
         }
         if(pq.isEmpty()) return null;
-        ListNode curr = new ListNode();
-        curr.val = pq.poll();
-        ListNode head = curr;
+        ListNode head = new ListNode(pq.poll());
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode temp = head;
         while(!pq.isEmpty()){
-            ListNode agla = new ListNode();
-            agla.val = pq.poll();
-            curr.next = agla;
-            curr = agla;
+            ListNode curr = new ListNode(pq.poll());
+            temp.next = curr;
+            temp = temp.next;
         }
-        return head;
+        return dummy.next;
     }
 }
