@@ -19,17 +19,13 @@ class Solution {
         Queue<int[]> q = new LinkedList<>();
         int[] drow = {-1,0,1,0};
         int[] dcol = {0,1,0,-1};
-        grid[r][c] = '0';
         q.offer(new int[]{r,c});
         while(!q.isEmpty()){
-            int row = q.peek()[0];
-            int col = q.peek()[1];
-            q.poll();
+            int[] curr = q.poll();
             for(int i=0; i<4; i++){
-                int nrow = drow[i]+row;
-                int ncol = dcol[i]+col;
-                if(nrow>=0 && nrow<n && ncol<m && ncol>=0 && 
-                grid[nrow][ncol]=='1'){
+                int nrow = curr[0]+drow[i];
+                int ncol = curr[1]+dcol[i];
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]=='1'){
                     q.offer(new int[]{nrow, ncol});
                     grid[nrow][ncol]='0';
                 }
