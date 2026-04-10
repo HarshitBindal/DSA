@@ -3,21 +3,13 @@ class Solution {
         int n = grid.length;
         int m = grid[0].length;
         int fresh = 0;
-        int rotten = 0;
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                if(grid[i][j]==1) fresh++;
-                else if(grid[i][j]==2) rotten++;
-            }
-        }
-        // if(rotten==0) return -1;
         Queue<int[]> q = new LinkedList<>();
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
-                if(grid[i][j]==2) {
+                if(grid[i][j]==1) fresh++;
+                else if(grid[i][j]==2){
                     q.offer(new int[]{i,j,0});
-                    // break;
-                }
+                } 
             }
         }
         int[] drow = {-1,0,1,0};
