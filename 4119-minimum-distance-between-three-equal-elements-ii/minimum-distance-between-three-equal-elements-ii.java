@@ -13,7 +13,6 @@ class Solution {
         for(Map.Entry<Integer, List<Integer>> entry: map.entrySet()){
             List<Integer> list = entry.getValue();
             if(list.size()>=3){
-                print(list);
                 Collections.sort(list);
                 int i=0, j=1, k=2;
                 while(k<list.size()){
@@ -26,12 +25,5 @@ class Solution {
             }
         }
         return mini==Integer.MAX_VALUE? -1: mini;
-    }
-    private void print(List<Integer> list){
-        for(int i=0; i<list.size(); i++){
-            System.out.print(list.get(i));
-            System.out.print(", ");
-        }
-        System.out.println();
     }
 }
