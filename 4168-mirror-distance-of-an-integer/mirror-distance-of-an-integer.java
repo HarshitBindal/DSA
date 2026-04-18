@@ -1,8 +1,12 @@
 class Solution {
     public int mirrorDistance(int n) {
-        String str = String.valueOf(n);
-        String reversed = new StringBuilder(str).reverse().toString();
-        int x = Integer.valueOf(reversed);
+        int x = 0;
+        int y = n;
+        while(y>0){
+            int rem = y%10;
+            x = x*10 + rem;
+            y /= 10;
+        }
         return Math.abs(n-x);
     }
 }
