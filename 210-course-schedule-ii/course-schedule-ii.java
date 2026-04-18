@@ -1,44 +1,39 @@
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         List<List<Integer>> graph = new ArrayList<>();
+        int[] indegree = new int[numCourses];
         for(int i=0; i<numCourses; i++){
             graph.add(new ArrayList<>());
         }
-        for(int i=0; i<prerequisites.length; i++){
-            graph.get(prerequisites[i][1]).add(prerequisites[i][0]);
+        List<Integer> list = new ArrayList<>();
+        int pos = 0;
+        for(int[] edge: prerequisites){
+            graph.get(edge[1]).add(edge[0]);
+            indegree[edge[0]]++;
         }
-        boolean[] visited = new boolean[numCourses];
-        Stack<Integer> s = new Stack<>();
-        boolean[] rec = new boolean[numCourses];
-        int[] ans = new int[numCourses];
+        int courses=0;
+        Queue<Integer> q = new LinkedList<>();
         for(int i=0; i<numCourses; i++){
-            if(!visited[i]){
-                if(!dfs(i, s, visited, graph, rec)){
-                    return new int[0];
-                }
+            if(indegree[i]==0){
+                q.offer(i);
             }
         }
-        int j = 0;
-        while(!s.isEmpty()){
-            ans[j] = s.pop();
-            j++;
+        while(!q.isEmpty()){
+            int curr = q.poll();
+            list.add(curr);
+            courses++;
+            for(int it: graph.get(curr)){
+                indegree[it]--;
+                if(indegree[it]==0){
+                    q.offer(it);
+                } 
+            }
         }
-        return ans;
-    }
-    private boolean dfs(int i, Stack<Integer> s, boolean[] visited, 
-    List<List<Integer>> graph, boolean[] rec){
-        visited[i] = true;
-        rec[i] = true;
-        for(int j: graph.get(i)){
-            if(!visited[j]){
-                if(!dfs(j, s, visited, graph, rec)){
-                    return false;
-                }
-            } 
-            else if(rec[j]) return false;
+        if(courses!=numCourses) return new int[0];
+        int[] res = new int[list.size()];
+        for(int i=0; i<res.length; i++){
+            res[i] = list.get(i);
         }
-        rec[i] = false;
-        s.push(i);
-        return true;
+        return res;
     }
 }
