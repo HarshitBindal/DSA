@@ -1,32 +1,28 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int courses = 0;
-        List<List<Integer>> list = new ArrayList<>();
+        List<List<Integer>> graph = new ArrayList<>();
         for(int i=0; i<numCourses; i++){
-            list.add(new ArrayList<>());
+            graph.add(new ArrayList<>());
         }
         int[] indegree = new int[numCourses];
-        for(int[] course: prerequisites){
-            list.get(course[0]).add(course[1]);
-            indegree[course[1]]++;
+        for(int[] edge: prerequisites){
+            graph.get(edge[1]).add(edge[0]);
+            indegree[edge[0]]++;
         }
         Queue<Integer> q = new LinkedList<>();
-        for(int i=0; i<indegree.length; i++){
-            if(indegree[i]==0){
-                q.offer(i);
-                courses++;
-            } 
+        for(int i=0; i<numCourses; i++){
+            if(indegree[i]==0) q.offer(i);
         }
         while(!q.isEmpty()){
             int curr = q.poll();
-            for(int neighbour: list.get(curr)){
-                indegree[neighbour]--;
-                if(indegree[neighbour]==0){
-                    courses++;
-                    q.offer(neighbour);
-                }
+            for(int it: graph.get(curr)){
+                indegree[it]--;
+                if(indegree[it]==0) q.offer(it);
             }
         }
-        return courses == numCourses;
+        for(int i=0; i<numCourses; i++){
+            if(indegree[i]!=0) return false;
+        }
+        return true;
     }
 }
